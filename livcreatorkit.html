@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -586,6 +586,12 @@
             }
         }
 
+        @media (max-width: 800px) {
+            .setup-wizard-gallery {
+                grid-template-columns: 1fr !important;
+            }
+        }
+
         @media (max-width: 768px) {
             .container {
                 padding: 0 24px;
@@ -755,7 +761,7 @@
                 helps solve
                 common issues during integration, users can automatically apply fixes with just a single click.
             </p>
-            <div class="image-gallery animate animate-delay-2" style="grid-template-columns: repeat(3, 1fr);">
+            <div class="image-gallery setup-wizard-gallery animate animate-delay-2" style="grid-template-columns: repeat(3, 1fr);">
                 <div class="gallery-image crop-right">
                     <img src="SetupWizard1.png" alt="Setup Wizard Step 1">
                 </div>
