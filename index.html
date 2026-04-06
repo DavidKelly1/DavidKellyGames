@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>David Kelly Games</title>
+    <meta name="description" content="The portfolio website for David Kelly. Game Dev, UI/UX, C#, 3D Modelling.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        /* ===== Reset ===== */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: #FFFFFF;
+            color: #000000;
+            line-height: 1.5;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* ===== Animations ===== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .animate {
+            opacity: 0;
+            animation: fadeInUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+
+        .animate-delay-1 {
+            animation-delay: 0.1s;
+        }
+
+        .animate-delay-2 {
+            animation-delay: 0.2s;
+        }
+
+        .animate-delay-3 {
+            animation-delay: 0.3s;
+        }
+
+        .animate-delay-4 {
+            animation-delay: 0.4s;
+        }
+
+        .animate-delay-5 {
+            animation-delay: 0.5s;
+        }
+
+        .animate-delay-6 {
+            animation-delay: 0.6s;
+        }
+
+        .animate-delay-7 {
+            animation-delay: 0.7s;
+        }
+
+        /* ===== Container ===== */
+        .container {
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 0 80px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ===== Hero Section ===== */
+        .hero {
+            padding: 27px 0 0;
+            min-height: 104.155vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .hero .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            width: 100%;
+        }
+
+        /* Wide screen: side-by-side layout */
+        .hero-row {
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+            gap: 0;
+            width: 100%;
+            padding: 0 0 10px;
+            margin-top: -130px;
+        }
+
+        .hero-left {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex-shrink: 0;
+            padding: 10px 70px 0 80px;
+            gap: 36px;
+        }
+
+        /* Profile image */
+        .hero-image {
+            display: flex;
+            justify-content: center;
+        }
+
+        .profile-image-wrapper {
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            overflow: hidden;
+            flex-shrink: 0;
+            box-shadow: 0 0 2px 4px #000;
+        }
+
+        .profile-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transform: scale(1.07) translate(2.5%, 0%);
+            transform-origin: center center;
+        }
+
+        /* Contact links */
+        .hero-contact {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 24px;
+            font-weight: 500;
+            color: #1A1A1A;
+            transition: opacity 0.3s ease;
+        }
+
+        .contact-item:hover {
+            opacity: 0.6;
+        }
+
+        .contact-item svg {
+            width: 44px;
+            height: 44px;
+            color: #555555;
+            flex-shrink: 0;
+        }
+
+        /* Hero text */
+        .hero-text {
+            text-align: left;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-top: 30px;
+        }
+
+        .hero-title {
+            font-size: 100px;
+            font-weight: 500;
+            line-height: 1.2em;
+            letter-spacing: 0em;
+            margin-bottom: 0;
+        }
+
+        .hero-title .greeting {
+            color: rgb(150, 150, 150);
+            font-weight: 500;
+        }
+
+        .hero-subtitle {
+            font-size: 24px;
+            font-weight: 500;
+            color: #000000;
+            letter-spacing: 0em;
+            line-height: 1.4em;
+            text-align: right;
+            margin-top: 35px;
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            position: absolute;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #AAAAAA;
+        }
+
+        .scroll-indicator svg {
+            animation: scrollBounce 2s ease-in-out infinite;
+        }
+
+        @keyframes scrollBounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(8px);
+            }
+        }
+
+        /* ===== Projects Section ===== */
+        .projects {
+            padding: 60px 0 150px;
+        }
+
+        .projects-header {
+            margin-bottom: 0;
+        }
+
+        .projects-title {
+            font-size: 40px;
+            font-weight: 500;
+            letter-spacing: 0em;
+            line-height: 1.4em;
+            padding-bottom: 0;
+            margin-bottom: 0;
+        }
+
+        /* SVG diagonal pattern divider */
+        .projects-divider {
+            width: 100%;
+            height: 1px;
+            margin-top: 10px;
+            background-repeat: repeat;
+            background-position: left top;
+            background-size: 64px auto;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='126' height='126'%3E%3Cpath d='M126 0v21.584L21.584 126H0v-17.585L108.415 0H126Zm0 108.414V126h-17.586L126 108.414Zm0-84v39.171L63.585 126H24.414L126 24.414Zm0 42v39.17L105.584 126h-39.17L126 66.414ZM105.586 0 0 105.586V66.415L66.415 0h39.171Zm-42 0L0 63.586V24.415L24.415 0h39.171Zm-42 0L0 21.586V0h21.586Z' fill='rgba(136,136,136,0.2)' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(200px, 1fr));
+            grid-auto-rows: 600px;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        /* Project card */
+        .project-card {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            height: 100%;
+        }
+
+        .project-card-info {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .project-category {
+            font-size: 18px;
+            font-weight: 500;
+            color: #888888;
+        }
+
+        .project-name {
+            font-size: 20px;
+            font-weight: 500;
+            color: #000000;
+            letter-spacing: 0em;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .project-image-wrapper {
+            position: relative;
+            border-radius: 24px;
+            overflow: hidden;
+            flex: 1 0 0;
+            min-height: 0;
+        }
+
+        .project-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: width 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                height 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                top 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                left 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .project-card:hover .project-image {
+            width: 106%;
+            height: 106%;
+            top: -2.4%;
+            left: -3%;
+        }
+
+        /* ===== Contact / CTA Section ===== */
+        .cta-section {
+            background-color: #000000;
+            color: #ffffff;
+            height: 95vh;
+            max-height: 1000px;
+            display: flex;
+            align-items: center;
+        }
+
+        .cta-section .container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
+        }
+
+        .cta-label {
+            font-size: 16px;
+            font-weight: 400;
+            color: #ffffff;
+            margin-bottom: 24px;
+        }
+
+        .cta-title {
+            font-size: 80px;
+            font-weight: 400;
+            letter-spacing: 0em;
+            line-height: 1.15em;
+            margin-bottom: 64px;
+            color: #ffffff;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 32px;
+            background-color: #f0f0f0;
+            color: #000000;
+            border-radius: 64px;
+            font-size: 18px;
+            font-weight: 500;
+            font-family: 'Manrope', sans-serif;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .cta-button:hover {
+            background-color: #E8E3DA;
+            transform: translateY(-2px);
+        }
+
+        .cta-button svg {
+            width: 16px;
+            height: 16px;
+            transition: transform 0.3s ease;
+        }
+
+        .cta-button:hover svg {
+            transform: translate(3px, -3px);
+        }
+
+        /* ===== Responsive ===== */
+        /* Framer breakpoint: 1300-1919px */
+        @media (max-width: 1919px) {
+            .hero .container {
+                max-width: 1300px;
+            }
+
+            .hero-row {
+                align-items: flex-start;
+                padding: 0 0 10px;
+            }
+
+            .hero-left {
+                padding: 10px 80px 0 10px;
+                width: 380px;
+                flex-shrink: 0;
+            }
+
+            .hero-text {
+                /* Push down so "I create immersive" (line 2 at 76px*1.2) centers on the 300px image */
+                padding-top: 23px;
+            }
+
+            .hero-subtitle {
+                margin-top: 50px;
+            }
+
+            .profile-image-wrapper {
+                width: 300px;
+                height: 300px;
+            }
+
+            .hero-title {
+                font-size: 76px;
+            }
+        }
+
+        /* Framer breakpoint: 768-1299px */
+        @media (max-width: 1299px) {
+            .container {
+                padding: 0 64px;
+            }
+
+            /* Switch to centered vertical stack */
+            .hero-row {
+                flex-direction: column;
+                align-items: center;
+                height: auto;
+                padding: 40px 0 10px;
+                margin-top: 0;
+            }
+
+            .hero-left {
+                align-items: center;
+                padding: 0 0 20px;
+                width: 100%;
+                gap: 0;
+            }
+
+            /* Contacts appear above photo at tablet */
+            .hero-image {
+                order: 2;
+            }
+
+            .hero-contact {
+                order: 1;
+                padding: 15px 0;
+            }
+
+            #hero-linkedin {
+                order: 1;
+            }
+
+            #hero-phone {
+                order: 2;
+            }
+
+            #hero-email {
+                order: 3;
+            }
+
+            .hero-text {
+                text-align: center;
+                height: auto;
+                width: 100%;
+                padding-top: 0;
+                margin-top: 0;
+            }
+
+            .hero-title,
+            .hero-subtitle {
+                text-align: center;
+            }
+
+            .hero-title {
+                font-size: 52px;
+            }
+
+            .hero-subtitle {
+                font-size: 22px;
+            }
+
+            .contact-item {
+                font-size: 18px;
+            }
+
+            .contact-item svg {
+                width: 32px;
+                height: 32px;
+            }
+
+            .hero {
+                min-height: auto;
+                padding-top: 0;
+            }
+
+            .scroll-indicator {
+                display: none;
+            }
+
+            .projects {
+                padding: 60px 0 160px;
+            }
+
+            .projects-grid {
+                grid-auto-rows: 450px;
+            }
+
+
+            .cta-title {
+                font-size: 52px;
+            }
+
+            .cta-section {
+                height: auto;
+                max-height: none;
+                padding: 64px 0;
+            }
+        }
+
+        /* Framer breakpoint: <768px */
+        @media (max-width: 767px) {
+            .container {
+                padding: 0 16px;
+            }
+
+            .hero {
+                padding: 0;
+            }
+
+            .hero-left {
+                padding: 10px 0;
+            }
+
+            .hero-title {
+                font-size: 52px;
+            }
+
+            .hero-subtitle {
+                font-size: 20px;
+            }
+
+            .profile-image-wrapper {
+                width: 300px;
+                height: 300px;
+            }
+
+            .projects-grid {
+                grid-template-columns: repeat(1, minmax(200px, 1fr));
+                grid-auto-rows: 300px;
+            }
+
+            .projects-title {
+                font-size: 32px;
+            }
+
+            .projects {
+                padding: 60px 0 160px;
+            }
+
+            .cta-section {
+                height: auto;
+                max-height: none;
+                padding: 48px 0;
+            }
+
+            .cta-title {
+                font-size: 32px;
+            }
+
+            .cta-button {
+                padding: 14px 28px;
+                font-size: 16px;
+            }
+
+            .scroll-indicator {
+                display: none;
+            }
+
+            .contact-item svg {
+                width: 36px;
+                height: 36px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-row">
+                <!-- Left side: photo + contact -->
+                <div class="hero-left animate animate-delay-1">
+                    <div class="hero-image">
+                        <div class="profile-image-wrapper">
+                            <img src="profile.jpg" alt="David Kelly" class="profile-image">
+                        </div>
+                    </div>
+                    <div class="hero-contact">
+                        <a href="mailto:david.kelly033@gmail.com" class="contact-item" id="hero-email">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z" />
+                                <path
+                                    d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z" />
+                            </svg>
+                            <span>David.kelly033@gmail.com</span>
+                        </a>
+                        <a href="tel:+447415304333" class="contact-item" id="hero-phone">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <path fill-rule="evenodd"
+                                    d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            <span>(+44) 0741 530 4333</span>
+                        </a>
+                        <a href="https://www.linkedin.com/in/david-kelly-5a2a94224" target="_blank" class="contact-item"
+                            id="hero-linkedin">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                            </svg>
+                            <span>LinkedIn</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right side: heading + subtitle -->
+                <div class="hero-text animate animate-delay-2">
+                    <h1 class="hero-title"><span class="greeting">Hey I&#x2019;m David,</span><br>I create
+                        immersive<br>experiences in Unity.</h1>
+                    <p class="hero-subtitle">Game Dev - UI/UX - C# - VR/XR - 3D Modelling</p>
+                </div>
+            </div>
+
+            <!-- Scroll indicator -->
+            <div class="scroll-indicator animate animate-delay-5">
+                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="2" x2="12" y2="19"></line>
+                    <polyline points="19 12 12 19 5 12"></polyline>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects" id="projects">
+        <div class="container">
+            <div class="projects-header animate">
+                <h2 class="projects-title">Projects</h2>
+                <div class="projects-divider"></div>
+            </div>
+
+            <div class="projects-grid">
+                <!-- Project 1: LIV Creator Kit -->
+                <a href="livcreatorkit.html" class="project-card animate animate-delay-2" id="project-liv-creator-kit">
+                    <div class="project-card-info">
+                        <p class="project-category">LIV</p>
+                        <h3 class="project-name">LIV Creator Kit - SDK for VR</h3>
+                    </div>
+                    <div class="project-image-wrapper">
+                        <img src="liv-banner.png" alt="LIV Creator Kit - SDK for VR" class="project-image">
+                    </div>
+                </a>
+
+                <!-- Project 2: Project Spatial -->
+                <a href="projectspatial.html" class="project-card animate animate-delay-3" id="project-spatial">
+                    <div class="project-card-info">
+                        <p class="project-category">LIV</p>
+                        <h3 class="project-name">Project Spatial - VR</h3>
+                    </div>
+                    <div class="project-image-wrapper">
+                        <img src="project-spatial-banner.png" alt="Project Spatial - VR" class="project-image">
+                    </div>
+                </a>
+
+                <!-- Project 3: How Bad Are Bananas? -->
+                <a href="howbadarebananas.html" class="project-card animate animate-delay-4" id="project-bananas">
+                    <div class="project-card-info">
+                        <p class="project-category">Future We Want</p>
+                        <h3 class="project-name">How Bad Are Bananas? - WebGL</h3>
+                    </div>
+                    <div class="project-image-wrapper">
+                        <img src="bananas-banner.png" alt="How Bad Are Bananas?" class="project-image">
+                    </div>
+                </a>
+
+                <!-- Project 4: My Vibe -->
+                <a href="myvibe.html" class="project-card animate animate-delay-5" id="project-myvibe">
+                    <div class="project-card-info">
+                        <p class="project-category">Hobby Project</p>
+                        <h3 class="project-name">My Vibe - PC</h3>
+                    </div>
+                    <div class="project-image-wrapper">
+                        <img src="myvibe-banner.png" alt="My Vibe" class="project-image">
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact / CTA Section -->
+    <section class="cta-section" id="contact">
+        <div class="container">
+            <p class="cta-label animate">Contact</p>
+            <h2 class="cta-title animate animate-delay-1">Let's start creating together</h2>
+            <a href="contact.html" class="cta-button animate animate-delay-2" id="cta-lets-talk">
+                Let's talk
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                    <polyline points="7 7 17 7 17 17"></polyline>
+                </svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- Scroll Animation Script -->
+    <script>
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -40px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate').forEach(el => {
+            el.style.animationPlayState = 'paused';
+            observer.observe(el);
+        });
+
+        // Start hero animations immediately
+        document.querySelectorAll('.hero .animate').forEach(el => {
+            el.style.animationPlayState = 'running';
+        });
+    </script>
+</body>
+
+</html>

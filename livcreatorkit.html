@@ -1,0 +1,935 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LIV Creator Kit - David Kelly Games</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: #0d0d0d;
+            background-image: linear-gradient(180deg, #1a1a1a 0%, #0d0d0d 30%);
+            background-attachment: fixed;
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate {
+            opacity: 0;
+            animation: fadeInUp 0.6s cubic-bezier(0.44, 0, 0.56, 1) forwards;
+        }
+
+        .animate-delay-1 {
+            animation-delay: 0.1s;
+        }
+
+        .animate-delay-2 {
+            animation-delay: 0.2s;
+        }
+
+        .animate-delay-3 {
+            animation-delay: 0.3s;
+        }
+
+        .animate-delay-4 {
+            animation-delay: 0.4s;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 80px;
+        }
+
+        /* Header */
+        .header {
+            padding: 40px 0 20px;
+            background: transparent;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            color: #fff;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #ccc;
+        }
+
+        .back-link svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 0 0 80px;
+        }
+
+        .hero-header {
+            margin-bottom: 0px;
+        }
+
+        .project-title {
+            font-size: 64px;
+            font-weight: 600;
+            line-height: 1.1;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+            color: #fff;
+        }
+
+        .project-subtitle {
+            font-size: 20px;
+            font-weight: 500;
+            color: #aaa;
+        }
+
+        .project-meta {
+            display: flex;
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .meta-tag {
+            display: inline-block;
+            padding: 8px 20px;
+            background-color: #e8e8e8;
+            color: #000;
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .external-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 20px;
+            background-color: #e8e8e8;
+            color: #000;
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 500;
+            white-space: nowrap;
+            transition: transform 0.3s ease;
+        }
+
+        .external-link:hover {
+            transform: scale(1.05);
+        }
+
+        .external-link svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Hero Images */
+        .hero-images {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-top: 48px;
+        }
+
+        .hero-image {
+            width: 100%;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Interactive Tablet */
+        .tablet-section {
+            background: transparent;
+            padding: 80px 0 40px;
+            position: relative;
+            overflow: hidden;
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
+        }
+
+        .tablet-section.hero {
+            padding-top: 20px;
+        }
+
+        .tablet-section .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 80px;
+        }
+
+        .tablet-wrapper {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .try-it-label {
+            position: absolute;
+            top: -25px;
+            left: 0%;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            gap: 6px;
+            z-index: 10;
+        }
+
+        .try-it-arrow {
+            width: 50px;
+            height: 60px;
+        }
+
+        /* LIV Interactive Camera */
+        .liv-int-camera {
+            position: relative;
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .liv-int-camera-frame {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Console Tabs (SELFIE, FIRST, THIRD) */
+        .console-tabs {
+            position: absolute;
+            top: 12%;
+            left: 11.5%;
+            width: 53%;
+            height: 14%;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2%;
+        }
+
+        /* Video wrapper positioned separately */
+        .console-video-wrap-outer {
+            position: absolute;
+            top: 27.7%;
+            left: 11.5%;
+            width: 53%;
+            height: 46%;
+        }
+
+        .console-tab {
+            background: url('button.png') center center / cover no-repeat;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            font-family: 'Manrope', sans-serif;
+            font-size: calc(0.9vw + 7px);
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: #BCBBBC;
+            text-transform: uppercase;
+            transition: all 0.15s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .console-tab::before {
+            content: "";
+            position: absolute;
+            inset: -60%;
+            z-index: 2;
+            pointer-events: none;
+            background: linear-gradient(120deg,
+                    rgba(255, 255, 255, 0) 0%,
+                    rgba(255, 255, 255, 0.08) 50%,
+                    rgba(255, 255, 255, 0) 100%);
+            transform: translate(var(--sx, -150%), var(--sy, -150%)) rotate(25deg);
+            will-change: transform;
+        }
+
+        .console-tab:hover {
+            color: #aaa;
+            filter: brightness(1.2);
+        }
+
+        .console-tab.active {
+            background: #6c5ce7;
+            color: #fff;
+        }
+
+        /* Video Container */
+        .console-video-wrap {
+            width: 100%;
+            height: 100%;
+            background: #000;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .console-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .console-video.active {
+            opacity: 1;
+        }
+
+        /* Tablet Responsive */
+        @media (max-width: 900px) {
+            .tablet-section {
+                padding: 60px 0;
+            }
+
+            .try-it-label {
+                top: -50px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .tablet-section {
+                padding: 40px 0;
+            }
+
+            .tablet-section .container {
+                padding: 0 16px;
+            }
+
+            .project-meta {
+                gap: 8px;
+            }
+
+            .try-it-label {
+                font-size: 13px;
+            }
+        }
+
+        /* Content Sections */
+        .content-section {
+            padding: 50px 0;
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 32px;
+        }
+
+        .section-description {
+            font-size: 18px;
+            color: #aaa;
+        }
+
+        .feature-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .feature-list li {
+            font-size: 18px;
+            color: #aaa;
+            padding-left: 24px;
+            position: relative;
+        }
+
+        .feature-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 10px;
+            width: 8px;
+            height: 8px;
+            background-color: #aaa;
+            border-radius: 50%;
+        }
+
+        /* Image Gallery */
+        .image-gallery {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-top: 48px;
+        }
+
+        .gallery-image {
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .gallery-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .gallery-image.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .gallery-image.crop-right img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: left center;
+        }
+
+        /* Back to Projects */
+        .back-to-projects {
+            padding: 40px 0 60px;
+            text-align: center;
+        }
+
+        .back-projects-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 32px;
+            background-color: transparent;
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 64px;
+            font-size: 18px;
+            font-weight: 500;
+            font-family: 'Manrope', sans-serif;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .back-projects-btn:hover {
+            background-color: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .back-projects-btn svg {
+            width: 16px;
+            height: 16px;
+            transition: transform 0.3s ease;
+        }
+
+        .back-projects-btn:hover svg {
+            transform: translate(3px, -3px);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: transparent;
+            color: #ffffff;
+            height: 95vh;
+            max-height: 1000px;
+            display: flex;
+            align-items: center;
+        }
+
+        .contact-section .container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
+        }
+
+        .cta-label {
+            font-size: 16px;
+            font-weight: 400;
+            color: #ffffff;
+            margin-bottom: 24px;
+        }
+
+        .contact-title {
+            font-size: 80px;
+            font-weight: 400;
+            letter-spacing: 0em;
+            line-height: 1.15em;
+            margin-bottom: 64px;
+            color: #ffffff;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 32px;
+            background-color: #f0f0f0;
+            color: #000000;
+            border-radius: 100px;
+            font-size: 18px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-button svg {
+            width: 20px;
+            height: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .cta-button:hover svg {
+            transform: translateX(4px);
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 0;
+            border-top: 1px solid #2a2a2a;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            opacity: 0.7;
+        }
+
+        .contact-item svg {
+            width: 24px;
+            height: 24px;
+            color: #969696;
+        }
+
+        .footer-contact {
+            display: flex;
+            gap: 40px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .container {
+                padding: 0 40px;
+            }
+
+            .project-title {
+                font-size: 48px;
+            }
+
+            .hero-images {
+                grid-template-columns: 1fr;
+            }
+
+            .image-gallery {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 24px;
+            }
+
+            .project-title {
+                font-size: 36px;
+            }
+
+            .project-subtitle {
+                font-size: 16px;
+            }
+
+            .section-title {
+                font-size: 24px;
+            }
+
+            .contact-title {
+                font-size: 32px;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 24px;
+            }
+
+            .footer-contact {
+                flex-direction: column;
+                gap: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <a href="index.html" class="back-link animate">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+                Back To Projects
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero Tablet Section -->
+    <section class="tablet-section hero">
+        <div class="container">
+            <div class="hero-header animate animate-delay-1">
+                <h1 class="project-title">LIV Creator Kit</h1>
+                <p class="project-subtitle">The VR camera SDK, now successfully integrated in
+                    smash hit titles Gorilla Tag, Walkabout Mini Golf, Orion Drift, UG, Tactical Assault VR,
+                    Rumble and over 300+ games.</p>
+                <div class="project-meta">
+                    <span class="meta-tag">VR</span>
+                    <span class="meta-tag">LIV</span>
+                    <a href="https://liv.tv/" target="_blank" class="external-link">
+                        LCK Page Link
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                            <polyline points="15 3 21 3 21 9"></polyline>
+                            <line x1="10" y1="14" x2="21" y2="3"></line>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="tablet-wrapper animate animate-delay-2">
+                <div class="liv-int-camera">
+                    <!-- Camera Tablet Frame -->
+                    <img src="tablet.png" alt="LIV Camera Tablet" class="liv-int-camera-frame">
+
+                    <!-- Mode Tabs -->
+                    <div class="console-tabs">
+                        <button class="console-tab active" data-console-tab="selfie">SELFIE</button>
+                        <button class="console-tab" data-console-tab="first">FIRST</button>
+                        <button class="console-tab" data-console-tab="third">THIRD</button>
+                    </div>
+
+                    <!-- Video Display -->
+                    <div class="console-video-wrap-outer">
+                        <div class="console-video-wrap">
+                            <video class="console-video active" data-content-tab="selfie" autoplay loop muted
+                                playsinline preload="auto">
+                                <source src="selfie.mp4" type="video/mp4">
+                            </video>
+                            <video class="console-video" data-content-tab="first" loop muted playsinline preload="auto">
+                                <source src="first.mp4" type="video/mp4">
+                            </video>
+                            <video class="console-video" data-content-tab="third" loop muted playsinline preload="auto">
+                                <source src="third.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- My Work Section -->
+    <section class="content-section">
+        <div class="container">
+            <h2 class="section-title animate">My work</h2>
+            <p class="section-description animate animate-delay-1">
+                I was a founding member for the LIV Creator Kit SDK, I worked on many different aspects of the
+                development journey
+                which included programming, UI/UX design, 3D modelling and communicating with high profile developers to
+                help them troubleshoot and integrate the SDK into their games. With over 124 million videos recorded and
+                1.4 million monthly active users, the SDK has become a staple in the VR community.<br><br>Some of my
+                most
+                notable contributions and learnings include:
+            </p>
+            <ul class="feature-list animate animate-delay-2">
+                <li>Creating the modular Scriptable Object button interaction scripts which allowed developers to easily
+                    customize and
+                    modify the
+                    camera prefab design in their projects.
+                </li>
+                <li>Learning how to leverage ML/AI to boost my efficiency while still maintaining a high standard of
+                    quality.
+                </li>
+                <li>Updating and maintaining multiple camera prefabs which supported developers using the most common VR
+                    packages
+                    such as XR interaction
+                    toolkit, Meta's XR SDK, and
+                    Gorilla Locomotion like rigs.
+                </li>
+                <li>3D character design, modelling, and rigging with inverse kinematics for our public sample scene and
+                    play testing scenes.
+                </li>
+                <li>Prototyping, gathering user feedback and iterating on new features for the SDK, such as
+                    livestreaming to Twitch and
+                    Youtube.</li>
+            </ul>
+            <div class="hero-images animate animate-delay-3" style="grid-template-columns: 1fr 1fr;">
+                <div class="hero-image">
+                    <img src="UG.png" alt="UG" style="width:100%;height:auto;display:block;">
+                </div>
+                <div class="hero-image">
+                    <img src="prison boss.png" alt="Prison Boss" style="width:100%;height:auto;display:block;">
+                </div>
+                <div class="hero-image">
+                    <img src="Gtag.png" alt="Gorilla Tag" style="width:100%;height:auto;display:block;">
+                </div>
+                <div class="hero-image">
+                    <img src="digigods.png" alt="Digigods" style="width:100%;height:auto;display:block;">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Setup Wizard Section -->
+    <section class="content-section">
+        <div class="container">
+            <h2 class="section-title animate">Setup Wizard</h2>
+            <p class="section-description animate animate-delay-1">
+                I created the in-editor Setup Wizard which guides developers through integrating the SDK step by step,
+                reducing
+                onboarding friction and getting projects up and running faster. It also includes a project validation
+                page
+                which
+                helps solve
+                common issues during integration, users can automatically apply fixes with just a single click.
+            </p>
+            <div class="image-gallery animate animate-delay-2" style="grid-template-columns: repeat(3, 1fr);">
+                <div class="gallery-image crop-right">
+                    <img src="SetupWizard1.png" alt="Setup Wizard Step 1">
+                </div>
+                <div class="gallery-image">
+                    <img src="SetupWizard2.png" alt="Setup Wizard Step 2">
+                </div>
+                <div class="gallery-image">
+                    <img src="SetupWizard3.png" alt="Setup Wizard Step 3">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Camera Prototypes Section -->
+    <section class="content-section">
+        <div class="container">
+            <h2 class="section-title animate">Rapid Prototyping</h2>
+            <p class="section-description animate animate-delay-1">
+                A valuable skill I honed during my time at LIV was rapid prototyping. As a small tech startup it was
+                crucial to be able to test out new ideas and iterate on them quickly based on test user feedback. I also
+                created our test scene and player character we frequently used to replicate our most popular game
+                integration Gorilla Tag.
+            </p>
+            <div class="image-gallery animate animate-delay-2">
+                <div class="gallery-image" style="height: 600px; overflow: hidden;">
+                    <img src="selfiestick.png" alt="Selfie Stick"
+                        style="width:100%; height:100%; object-fit:cover; display:block;">
+                </div>
+                <div class="gallery-image" style="height: 600px; overflow: hidden;">
+                    <img src="chattablet.gif" alt="Chat Tablet"
+                        style="width:100%; height:100%; object-fit:cover; display:block;">
+                </div>
+                <div class="gallery-image full-width">
+                    <img src="3rdpersontabletgif.webp" alt="Camera Prototype Demo">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Back to Projects -->
+    <section class="back-to-projects">
+        <div class="container">
+            <a href="index.html#projects" class="back-projects-btn animate">
+                Back To Projects
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                    <polyline points="7 7 17 7 17 17"></polyline>
+                </svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <p class="cta-label animate">Contact</p>
+            <h2 class="contact-title animate animate-delay-1">Let's start creating together</h2>
+            <a href="contact.html" class="cta-button animate animate-delay-2">
+                Let's talk
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                    <polyline points="7 7 17 7 17 17"></polyline>
+                </svg>
+            </a>
+        </div>
+    </section>
+
+    <script>
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate').forEach(el => {
+            el.style.animationPlayState = 'paused';
+            observer.observe(el);
+        });
+
+        // Start header and hero animations immediately
+        document.querySelectorAll('.header .animate, .hero .animate').forEach(el => {
+            el.style.animationPlayState = 'running';
+        });
+
+        // LIV Interactive Camera - Tab Switching
+        const consoleTabs = document.querySelectorAll('[data-console-tab]');
+        const consoleVideos = document.querySelectorAll('[data-content-tab]');
+
+        // Play active video on load
+        const activeVideo = document.querySelector('.console-video.active');
+        if (activeVideo) {
+            activeVideo.play().catch(e => console.log('Autoplay prevented:', e));
+        }
+
+        // Handle tab clicks
+        consoleTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const targetTab = tab.dataset.consoleTab;
+
+                // Update tab active states
+                consoleTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+
+                // Switch videos
+                consoleVideos.forEach(video => {
+                    if (video.dataset.contentTab === targetTab) {
+                        video.classList.add('active');
+                        video.currentTime = 0;
+                        video.play().catch(e => console.log('Play prevented:', e));
+                    } else {
+                        video.classList.remove('active');
+                        video.pause();
+                    }
+                });
+            });
+        });
+
+        // Play video when section becomes visible
+        const cameraSection = document.querySelector('.liv-int-camera');
+        if (cameraSection) {
+            const videoObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const activeVid = document.querySelector('.console-video.active');
+                        if (activeVid) {
+                            activeVid.play().catch(e => console.log('Autoplay prevented:', e));
+                        }
+                    }
+                });
+            }, { threshold: 0.3 });
+            videoObserver.observe(cameraSection);
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <script>
+        // Diagonal shine animation across all console-tab buttons with staggered timing
+        document.addEventListener('DOMContentLoaded', () => {
+            const buttons = Array.from(document.querySelectorAll('.console-tab'));
+            if (!buttons.length) return;
+
+            gsap.set(buttons, { '--sx': '-150%', '--sy': '-150%' });
+
+            const DURATION = 2;
+            const STEP = 0.4;
+            const EASE = 'power1.in';
+            // repeatDelay below controls gap between sweeps
+
+            buttons.forEach((btn, i) => {
+                gsap.fromTo(btn,
+                    { '--sx': '-150%', '--sy': '-150%' },
+                    {
+                        '--sx': '150%',
+                        '--sy': '150%',
+                        duration: DURATION,
+                        ease: EASE,
+                        repeat: -1,
+                        repeatDelay: 4,
+                        delay: i * STEP
+                    }
+                );
+            });
+        });
+    </script>
+</body>
+
+</html>
